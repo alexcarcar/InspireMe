@@ -6,13 +6,14 @@
     android:orientation="vertical"
     tools:context=".MainActivity">
 
+
     <Button
-        android:id="@+id/button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:onClick="inspireMe"
         android:text="@string/app_name" />
+
 
     <TextView
         android:id="@+id/quote"
@@ -20,8 +21,28 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="5sp"
-        android:minLines="5"
+        android:layout_weight="80"
         android:textSize="20sp" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:onClick="onClickVoice"
+            android:text="@string/say_it" />
+
+        <Button
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10sp"
+            android:onClick="onNext"
+            android:text="@string/say_next" />
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -1,6 +1,7 @@
 package alex.carcar.inspireme;
 
 import android.os.Bundle;
+import android.speech.tts.TextToSpeech;
 import android.view.View;
 import android.widget.TextView;
 
@@ -10,9 +11,12 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.Locale;
 import java.util.Random;
 
 public class MainActivity extends AppCompatActivity {
+
+    static TextToSpeech tts;
 
     ArrayList<String> quotes;
     TextView quote;
@@ -22,8 +26,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        quote = findViewById(R.id.quote);
         random = new Random();
+        tts = new TextToSpeech(getApplicationContext(), status -> {
+            if (status != TextToSpeech.ERROR) {
+                tts.setLanguage(Locale.US);
+            }
+        });
+        quote = findViewById(R.id.quote);
         readQuotes();
         pickQuote();
     }
@@ -49,5 +58,31 @@ public class MainActivity extends AppCompatActivity {
 
     public void inspireMe(View view) {
         pickQuote();
+    }
+
+    public void onClickVoice(View view) {
+        sayQuote();
+    }
+
+    private void sayQuote() {
+        say(quote.getText().toString());
+    }
+
+    private void say(String toSpeak) {
+        tts.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null);
+    }
+
+    @Override
+    protected void onPause() {
+        if (tts != null) {
+            tts.stop();
+            tts.shutdown();
+        }
+        super.onPause();
+    }
+
+    public void onNext(View view) {
+        pickQuote();
+        sayQuote();
     }
 }
