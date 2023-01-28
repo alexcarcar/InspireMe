@@ -2,4 +2,6 @@
     <string name="app_name">Inspire Me</string>
     <string name="say_it">Say It</string>
     <string name="say_next">Say Next</string>
+    <string name="flash_screen_title">CAR CAR</string>
+    <string name="flash_screen_tag">Zoom zoom</string>
 </resources>
