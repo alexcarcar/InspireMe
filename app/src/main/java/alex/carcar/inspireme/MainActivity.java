@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
         addButton = findViewById(R.id.addButton);
         comment = findViewById(R.id.comment);
         mainComments = findViewById(R.id.mainComments);
+        mainComments.setOnClickListener(v -> AlexVoice.say(currentComments));
         mainScreen = new View[]{sayButton, sayNextButton, inspireButton, quote, addButton, mainComments};
 
         sayButton.setOnClickListener(v -> sayQuote());
