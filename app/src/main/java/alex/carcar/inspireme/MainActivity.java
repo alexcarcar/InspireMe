@@ -5,26 +5,32 @@ import android.os.Handler;
 import android.os.Looper;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
 import java.util.ArrayList;
 import java.util.Random;
 
-import alex.common.AlexChoose;
 import alex.common.AlexFile;
 import alex.common.AlexView;
 import alex.common.voice.AlexVoice;
 
 public class MainActivity extends AppCompatActivity {
     ArrayList<String> quotes;
-    TextView quote;
+    TextView quote, commentQuote, mainComments;
     Random random;
-    Button sayButton, sayNextButton, inspireButton;
+    Button sayButton, sayNextButton, inspireButton, commentSave, commentCancel, commentClear;
+    FloatingActionButton addButton;
     LinearLayout flashLayout;
-    View[] flashScreen, mainScreen;
+    View[] flashScreen, mainScreen, commentScreen;
+    EditText comment;
+    int currentQuote;
+    String currentComments, currentFilename;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,18 +42,47 @@ public class MainActivity extends AppCompatActivity {
         sayButton = findViewById(R.id.sayButton);
         sayNextButton = findViewById(R.id.sayNextButton);
         inspireButton = findViewById(R.id.inspireButton);
-        mainScreen = new View[] {sayButton, sayNextButton, inspireButton, quote};
+        addButton = findViewById(R.id.addButton);
+        comment = findViewById(R.id.comment);
+        mainComments = findViewById(R.id.mainComments);
+        mainScreen = new View[]{sayButton, sayNextButton, inspireButton, quote, addButton, mainComments};
 
         sayButton.setOnClickListener(v -> sayQuote());
         sayNextButton.setOnClickListener(v -> onNext());
         inspireButton.setOnClickListener(v -> pickQuote());
+        addButton.setOnClickListener(v -> addThoughts());
         pickQuote();
+
+        // COMMENT SCREEN
+        comment = findViewById(R.id.comment);
+        commentQuote = findViewById(R.id.commentQuote);
+        commentSave = findViewById(R.id.commentSave);
+        commentCancel = findViewById(R.id.commentCancel);
+        commentClear = findViewById(R.id.commentClear);
+        commentScreen = new View[]{commentQuote, comment, commentSave, commentCancel, commentClear};
+        commentCancel.setOnClickListener(v -> AlexView.hideAndShow(commentScreen, mainScreen));
+        commentClear.setOnClickListener(v -> comment.setText(""));
+        commentSave.setOnClickListener(v -> saveComment());
 
         // FLASH SCREEN
         flashLayout = findViewById(R.id.flashLayout);
         flashScreen = new View[]{flashLayout};
         final Handler handler = new Handler(Looper.getMainLooper());
         handler.postDelayed(this::showFlashScreen, 1000);
+    }
+
+    private void saveComment() {
+        currentComments = comment.getText().toString().trim();
+        mainComments.setText(currentComments);
+        AlexFile.saveString(this, currentFilename, currentComments);
+        AlexView.hideAndShow(commentScreen, mainScreen);
+        AlexView.toggleKeyboard(this, mainComments);
+    }
+
+    private void addThoughts() {
+        comment.setText(currentComments);
+        commentQuote.setText(quotes.get(currentQuote));
+        AlexView.hideAndShow(mainScreen, commentScreen);
     }
 
     private void showFlashScreen() {
@@ -64,7 +99,11 @@ public class MainActivity extends AppCompatActivity {
 
     private void pickQuote() {
         if (!quotes.isEmpty()) {
-            quote.setText(AlexChoose.getFromList(random, quotes));
+            currentQuote = random.nextInt(quotes.size());
+            currentFilename = "quotes-" + currentQuote;
+            currentComments = AlexFile.readAsString(this, currentFilename);
+            quote.setText(quotes.get(currentQuote));
+            mainComments.setText(currentComments);
         }
     }
 

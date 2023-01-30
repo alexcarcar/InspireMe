@@ -26,8 +26,17 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
         android:layout_margin="5sp"
-        android:layout_weight="80"
         android:textSize="20sp"
+        android:visibility="gone" />
+
+    <TextView
+        android:id="@+id/mainComments"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFF00"
+        android:layout_margin="5sp"
+        android:textSize="15sp"
+        android:layout_weight="60"
         android:visibility="gone" />
 
     <LinearLayout
@@ -50,7 +59,60 @@
             android:layout_marginStart="10sp"
             android:text="@string/say_next"
             android:visibility="gone" />
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/addButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10sp"
+            android:src="@drawable/add" />
     </LinearLayout>
 
+    <!-- COMMENT SCREEN -->
+    <TextView
+        android:id="@+id/commentQuote"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <EditText
+        android:id="@+id/comment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/enter_a_comment_here"
+        android:textSize="20sp"
+        android:visibility="gone" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/commentSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/save"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/commentCancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10sp"
+            android:text="@string/cancel"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/commentClear"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10sp"
+            android:text="@string/clear"
+            android:visibility="gone" />
+
+    </LinearLayout>
 
 </LinearLayout>

@@ -6,9 +6,9 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@drawable/ic_baseline_electric_bolt_24"
+        android:icon="@drawable/electric_bolt"
         android:label="@string/app_name"
-        android:roundIcon="@drawable/ic_baseline_electric_bolt_24"
+        android:roundIcon="@drawable/electric_bolt"
         android:supportsRtl="true"
         android:theme="@style/Theme.MaterialComponents.NoActionBar"
         tools:targetApi="31">

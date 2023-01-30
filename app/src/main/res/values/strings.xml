@@ -4,4 +4,8 @@
     <string name="say_next">Say Next</string>
     <string name="flash_screen_title">CAR CAR</string>
     <string name="flash_screen_tag">Zoom zoom</string>
+    <string name="enter_a_comment_here">Enter a comments here...</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="clear">Clear</string>
 </resources>
